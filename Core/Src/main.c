@@ -45,7 +45,7 @@
 /* Private variables ---------------------------------------------------------*/
 
 /* USER CODE BEGIN PV */
-uint8_t tx_data[2] = {3, 4};
+uint8_t tx_data[2] = {7, 4};
 uint8_t rx_data[2] = {1, 2};
 /* USER CODE END PV */
 
@@ -100,8 +100,7 @@ int main(void) {
     // HAL_GPIO_TogglePin(GPIOB, GPIO_PIN_3);
     // HAL_Delay(500);
 
-    if (HAL_SPI_TransmitReceive(&hspi1, tx_data, rx_data, sizeof(tx_data),
-                                10) != HAL_OK) {
+    if (HAL_SPI_Receive_DMA(&hspi1, rx_data, sizeof(tx_data)) != HAL_OK) {
       /* Transfer error in transmission process */
       Error_Handler();
     }
@@ -159,7 +158,11 @@ void SystemClock_Config(void) {
 }
 
 /* USER CODE BEGIN 4 */
-
+// void HAL_SPI_RxCpltCallback(SPI_HandleTypeDef *hspi) {
+//   /* Turn LED3 on: Transfer in transmission/reception process is complete */
+//   HAL_GPIO_TogglePin(GPIOB, GPIO_PIN_3);
+//   // HAL_GPIO_WritePin(GPIOA, GPIO_PIN_4, GPIO_PIN_SET);
+// }
 /* USER CODE END 4 */
 
 /**
